@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мое Интерактивное Резюме</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: 'Roboto', sans-serif; /* Более современный шрифт */
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); /* Градиентный фон */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.5s ease;
+        }
+
+        .resume-container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 35px 40px;
+            background-color: rgba(255, 255, 255, 0.95); /* Слегка прозрачный белый фон */
+            border: 1px solid #d1c4e9; /* Светло-фиолетовая рамка */
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Более выраженная тень */
+        }
+
+        /* Стили для фото */
+        .profile-photo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-photo {
+            width: 180px; /* Увеличим фото */
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #7e57c2; /* Более насыщенная рамка */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease; /* Анимация при наведении */
+        }
+
+            .profile-photo:hover {
+                transform: scale(1.05); /* Легкое увеличение при наведении */
+            }
+
+        /* Стили для заголовков (Имя, Фамилия) */
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif; /* Шрифт для заголовков */
+            color: #311b92; /* Глубокий фиолетовый */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        #surname-display {
+            font-weight: 400; /* Сделаем фамилию чуть менее жирной */
+        }
+
+        h2 {
+            font-size: 2em;
+            border-bottom: 2px solid #9575cd; /* Фиолетовое подчеркивание */
+            padding-bottom: 8px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            text-align: left; /* Выравнивание для заголовков секций */
+        }
+
+            h2:first-of-type {
+                margin-top: 10px; /* Уменьшим отступ для первого h2 */
+            }
+
+
+        /* Стили для текстовых блоков */
+        p, li {
+            font-size: 1.1em;
+            color: #424242; /* Темно-серый текст */
+        }
+
+        .intro-text {
+            text-align: center;
+            font-style: italic;
+            color: #6a1b9a; /* Фиолетовый для интро */
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+
+        #age-display-container {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #4caf50; /* Зеленый для возраста */
+            font-weight: bold;
+            min-height: 1.5em; /* Чтобы не прыгало при появлении текста */
+        }
+
+
+        /* Стили для интерактивных элементов */
+        .controls {
+            margin-top: 35px;
+            padding: 25px;
+            background-color: #ede7f6; /* Светло-лавандовый фон */
+            border: 1px dashed #b39ddb; /* Пунктирная рамка */
+            border-radius: 10px;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+            .control-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                color: #5e35b1;
+            }
+
+        .input-field {
+            font-size: 1em;
+            padding: 12px 15px;
+            margin-right: 10px;
+            border: 1px solid #b39ddb;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+            width: calc(60% - 20px); /* Расчет ширины */
+            transition: border-color 0.3s ease;
+        }
+
+            .input-field:focus {
+                border-color: #7e57c2; /* Акцент на рамке при фокусе */
+                outline: none;
+            }
+
+        .action-button {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background-image: linear-gradient(to right, #7e57c2 0%, #9575cd 51%, #7e57c2 100%); /* Градиент для кнопок */
+            background-size: 200% auto;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s ease-out; /* Более плавные переходы */
+            box-shadow: 0 3px 7px rgba(94, 53, 177, 0.3);
+            margin: 5px;
+            text-transform: uppercase; /* Все буквы заглавные */
+            letter-spacing: 0.5px;
+        }
+
+            .action-button:hover {
+                background-position: right center; /* Сдвиг градиента */
+                box-shadow: 0 5px 12px rgba(94, 53, 177, 0.4);
+                transform: translateY(-2px); /* Легкий подъем кнопки */
+            }
+
+            .action-button:active {
+                transform: translateY(0px);
+            }
+
+
+        /* Дополнительные стили для разнообразия */
+        .skills-list {
+            list-style-type: none; /* Уберем маркеры по умолчанию */
+            padding-left: 0;
+            display: flex; /* Расположим в ряд */
+            flex-wrap: wrap; /* С переносом */
+            gap: 10px; /* Отступы между элементами */
+        }
+
+            .skills-list li {
+                font-size: 1em;
+                background-color: #d1c4e9; /* Фон для навыка */
+                color: #311b92; /* Текст навыка */
+                padding: 8px 15px;
+                border-radius: 20px; /* Сильно скругленные края */
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+    </style>
+</head>
+<body>
+
+    <div class="resume-container">
+        <div class="profile-photo-container">
+            <img src="https://i.postimg.cc/htBNFJMs/044bd9d007e611f0b0307acc1207f44c.jpg" alt="Мое фото" class="profile-photo" id="profilePhoto">
+        </div>
+
+        <h1>Александр <span id="surname-display">К</span></h1>
+        <p class="intro-text">Начинающий Веб-разработчик | Исследователь кода</p>
+        <div id="age-display-container">
+            <!-- Сюда будет вставлен возраст -->
+        </div>
+
+        <h2>Основная информация</h2>
+        <p>
+            Привет! Меня зовут Александр, и я с энтузиазмом погружаюсь в мир веб-разработки.
+            Мне нравится создавать интерактивные и визуально привлекательные веб-страницы.
+            Эта страница — небольшой проект для отработки навыков HTML, CSS и JavaScript.
+            Стремлюсь к новым знаниям и готов к интересным вызовам!
+        </p>
+
+        <h2>Ключевые навыки</h2>
+        <ul class="skills-list">
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript (ES6+)</li>
+            <li>DOM API</li>
+            <li>Адаптивная верстка</li>
+            <li>Основы Git</li>
+            <li>Решение проблем</li>
+            <li>Быстрое обучение</li>
+        </ul>
+
+        <div class="controls">
+            <h3>Интерактивные элементы</h3>
+            <div class="control-group">
+                <label for="newSurnameInput">Изменить фамилию:</label>
+                <input type="text" id="newSurnameInput" class="input-field" placeholder="Новая фамилия">
+                <button id="changeSurnameButton" class="action-button">Применить</button>
+            </div>
+            <div class="control-group">
+                <label for="photoUrlInput">Сменить фото (URL):</label>
+                <input type="text" id="photoUrlInput" class="input-field" placeholder="https://example.com/image.jpg">
+                <button id="changePhotoButton" class="action-button">Сменить</button>
+            </div>
+            <div class="control-group">
+                <button id="randomBgButton" class="action-button">Случайный фон страницы</button>
+                <button id="enterAgeButton" class="action-button">Ввести свой возраст</button>
+            </div>
+        </div>
+
+        <h2>Контакты</h2>
+        <p>Email: alexander@example.com | Telegram: @alex_dev</p>
+
+    </div>
+
+    <script>
+        'use strict';
+
+        const surnameDisplay = document.getElementById('surname-display');
+        const newSurnameInput = document.getElementById('newSurnameInput');
+        const changeSurnameButton = document.getElementById('changeSurnameButton');
+        const randomBgButton = document.getElementById('randomBgButton');
+        const profilePhoto = document.getElementById('profilePhoto');
+        const photoUrlInput = document.getElementById('photoUrlInput');
+        const changePhotoButton = document.getElementById('changePhotoButton');
+        const enterAgeButton = document.getElementById('enterAgeButton');
+        const ageDisplayContainer = document.getElementById('age-display-container');
+
+        changeSurnameButton.addEventListener('click', function () {
+            const newSurname = newSurnameInput.value.trim();
+            if (newSurname) {
+                surnameDisplay.textContent = newSurname;
+                newSurnameInput.value = '';
+            } else {
+                alert('Пожалуйста, введите фамилию.');
+            }
+        });
+
+        randomBgButton.addEventListener('click', function () {
+            const r = Math.floor(Math.random() * 180) + 50; // Более пастельные тона
+            const g = Math.floor(Math.random() * 180) + 50;
+            const b = Math.floor(Math.random() * 180) + 50;
+            document.body.style.background = `rgb(${r}, ${g}, ${b})`;
+        });
+
+        changePhotoButton.addEventListener('click', function () {
+            const newPhotoUrl = photoUrlInput.value.trim();
+            if (newPhotoUrl) {
+                if (newPhotoUrl.match(/\.(jpeg|jpg|gif|png|webp)$/i) != null) { // Добавил webp и i для регистра
+                    profilePhoto.src = newPhotoUrl;
+                    photoUrlInput.value = '';
+                } else {
+                    alert('Пожалуйста, введите корректный URL изображения (например, .jpg, .png, .gif, .webp).');
+                }
+            } else {
+                alert('Пожалуйста, введите URL нового фото.');
+            }
+        });
+
+        function askAgeConfirmation() {
+            let age;
+            let isConfirmed = false;
+
+            do {
+                age = prompt("Пожалуйста, введите ваш возраст:", "");
+
+                if (age === null) {
+                    alert("Ввод возраста был отменен.");
+                    return null; // Возвращаем null, если пользователь отменил
+                } else if (age.trim() === "" || isNaN(Number(age)) || Number(age) < 0 || Number(age) > 120) {
+                    alert("Пожалуйста, введите корректный возраст (число от 0 до 120).");
+                } else {
+                    isConfirmed = confirm("Вы уверены, что вам " + age + " лет/год(а)?");
+                    if (!isConfirmed) {
+                        alert("Хорошо, давайте попробуем ввести возраст еще раз.");
+                    }
+                }
+            } while (!isConfirmed);
+
+            return age; // Возвращаем подтвержденный возраст
+        }
+
+        enterAgeButton.addEventListener('click', function () {
+            const confirmedAge = askAgeConfirmation();
+            if (confirmedAge !== null) {
+                ageDisplayContainer.textContent = "Подтвержденный возраст: " + confirmedAge + " лет/год(а).";
+                alert("Спасибо! Ваш возраст (" + confirmedAge + ") подтвержден и отображен на странице.");
+                console.log("Подтвержденный возраст пользователя:", confirmedAge);
+            } else {
+                ageDisplayContainer.textContent = ""; // Очищаем, если отмена
+            }
+        });
+
+    </script>
+
+</body>
+</html>
